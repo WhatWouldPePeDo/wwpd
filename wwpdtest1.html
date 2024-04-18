@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Would Pepe Do</title>
+<style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-image: url('wwpd.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center; /* Ensure content is centered horizontally */
+        }
+        h1 {
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+            color: yellow; /* Comic book style usually has bright text colors */
+            font-size: 3em; /* Large font size for the heading */
+            margin: 0;
+            padding: 20px;
+            border: 3px solid yellow; /* Adding a yellow border for pop effect */
+            display: inline-block; /* To fit the content */
+            margin-top: 20px; /* Spacing from the top */
+            border-radius: 10px; /* Rounded corners for the heading box */
+            box-shadow: 5px 5px 0px rgba(0,0,0,0.75); /* Shadow for 3D effect */
+        }
+        p {
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+            color: white;
+            font-size: 1.2em;
+            padding: 20px;
+            width: 80%; /* Controlled width for readability */
+            margin: 20px auto; /* Centering the paragraph */
+            border-radius: 10px; /* Rounded corners for the paragraph box */
+        }
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <h1>What Would Pepe Do</h1>
+    <p>
+        On our journey to a happy life, we channel the wisdom of Pepe to guide our choices. It's a path of contemplation, laughter, and community decisions. Just like Pepe, we find ourselves at crossroads of the absurd and the profound. As a united front, we vote on what Pepe would do, tackling life's dilemmas with a touch of humor and a lot of heart. Today's conundrum: pick a side. So, what would Pepe do?
+    </p>
+    
+    <div id="countdown" style="font-size: 2em; margin-bottom: 20px;"></div>
+    
+    <button class="button" onclick="handleVote('TeamA')">Team A</button>
+    <button class="button" onclick="handleVote('TeamB')">Team B</button>
+
+    <script>
+        // Initialize the end time for the poll (24 hours from now for this example)
+        var endTime = new Date().getTime() + (24 * 60 * 60 * 1000);
+
+        // Function to handle the vote
+        function handleVote(team) {
+            // Check if the poll has ended
+            if (new Date().getTime() > endTime) {
+                alert("The poll has ended. No more votes can be cast.");
+                return;
+            }
+
+            // Increment vote count in local storage
+            var voteCount = parseInt(localStorage.getItem(team), 10) || 0;
+            localStorage.setItem(team, voteCount + 1);
+
+            // Display different messages based on which team was clicked
+            if (team === 'TeamA') {
+                alert("Wrong! You are starting to think like Pepe, but not really Pepe material. Unfortunately, this is a complete rug! GFY! Turn around, do no more research. Def DO NOT CLICK Team B... Total clicks: " + (voteCount + 1));
+            } else if (team === 'TeamB') {
+                alert("Congratulations! You have found the secret Pepe telegram Channel. Time to join an elite club. Below is a link to the telegram chat. What would pepe do?\n\n" + "https://t.me/+Vn7yeEZ59RplOTM5");
+            }
+        }
+
+        // Countdown function
+        function updateCountdown() {
+            var now = new Date().getTime();
+            var distance = endTime - now;
+
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("countdown").innerHTML = "Poll ended";
+                return;
+            }
+
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
+        }
+
+        // Update the countdown every second
+        var countdownInterval = setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
